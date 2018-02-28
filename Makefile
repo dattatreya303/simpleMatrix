@@ -1,7 +1,9 @@
 CPPFLAGS = -std=c++14
 
-simpleMatrix.o : simpleMatrix.h simpleMatrix.cpp
-	g++ ${CPPFLAGS} -c -g simpleMatrix.cpp
+all : test_matrix
+
+test_matrix : test_matrix.cpp simple_matrix.h test_suite.h
+	g++ ${CPPFLAGS} -g -o test_matrix test_matrix.cpp
 
 clean:
-	-rm -rf *.o
+	rm test_matrix
