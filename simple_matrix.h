@@ -113,8 +113,7 @@ namespace smps {
                             val += this->get_element(i, k) * other.get_element(k, j);
                         }
 
-                        int index = i * shape3.second + j;
-                        temp_matrix_ptr->matrix[index] = val;
+                        temp_matrix_ptr->insert_element( i, j, val );
                     }
                 }
 
