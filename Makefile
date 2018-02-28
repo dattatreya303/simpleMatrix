@@ -1,4 +1,4 @@
-CPPFLAGS = -std=c++14
+CPPFLAGS = -std=c++1y
 
 all : test_matrix
 

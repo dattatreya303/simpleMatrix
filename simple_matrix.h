@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <cstdio>
+#include <stdexcept>
 
 namespace smps {
 
