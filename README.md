@@ -1,5 +1,5 @@
 # simpleMatrix
-A small generic library supporting simple matrix operations.
+A small generic library supporting simple matrix operations, implemented using expression templates.
 
 ## About
 - Only numerical types (`int`, `float`, `double`, `complex` etc ) are supported as of now.
@@ -17,15 +17,15 @@ A small generic library supporting simple matrix operations.
 
 | Type       | Shape       | Average Execution time (in seconds)  |
 | :--------: | :---------: | :----------------------------------: |
-| `int`      | (1000,1000) | 0.055                                |
-| `complex`  | (1000,1000) | 0.075                                |
+| `int`      | (1000,1000) | 0.037                                |
+| `complex`  | (1000,1000) | 0.061                                |
 
 #### Multiplication
 
 | Type       | Shape       | Average Execution time (in seconds)  |
 | :--------: | :---------: | :----------------------------------: |
-| `int`      | (1000,1000) | 62                                   |
-| `complex`  | (1000,1000) | 92                                   |
+| `int`      | (1000,1000) | 26                                   |
+| `complex`  | (1000,1000) | 59                                   |
 
 #### System specs
 
