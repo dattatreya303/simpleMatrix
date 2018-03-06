@@ -10,6 +10,7 @@
 #include <stdexcept>
 #include <vector>
 #include <cassert>
+#include <pthread.h>
 
 namespace smps {
 
@@ -37,9 +38,9 @@ namespace smps {
     class MatrixSum : public MatrixExpression< MatrixSum<T1, T2> > {
     public:
         T1 const& _a;
-        T1 const& _b;
+        T2 const& _b;
 
-        MatrixSum(T1 const& a, T1 const& b) : _a(a), _b(b) {
+        MatrixSum(T1 const& a, T2 const& b) : _a(a), _b(b) {
             assert(( a.size() == b.size() ));
         }
 
@@ -58,9 +59,13 @@ namespace smps {
         T1 const& _a;
         T1 const& _b;
 
-        MatrixProduct(T1 const& a, T1 const& b) : _a(a), _b(b) {
+        MatrixProduct(T1 const& a, T2 const& b) : _a(a), _b(b) {
             assert(( a.size().second == b.size().first ));
         }
+
+        // void* MatrixProductWorker(void *args) {
+
+        // }
 
         auto operator () (size_t i, size_t j) const {
             auto val = _a(i,0) * _b(0,j);
@@ -78,13 +83,12 @@ namespace smps {
 
     template <typename T>
     class Matrix : MatrixExpression< Matrix<T> > {
-    private:
+    public:
         std::vector< std::vector<T> > array;
 
-    public:
         Matrix(size_t nrows, size_t ncols) : array(nrows) {
             for(int i = 0; i < nrows; i++) {
-                array[i] = std::vector<T>(ncols);
+                (*this).array[i] = std::vector<T>(ncols);
             }
         }
 
@@ -95,21 +99,35 @@ namespace smps {
 
             for(int i = 0; i < nrows; i++) {
                 for(int j = 0; j < ncols; j++) {
-                    array[i][j] = expr(i,j);
+                    (*this).array[i][j] = expr(i,j);
+                }
+            }
+        }
+
+        template <typename E>
+        void operator = (MatrixExpression<E> const& expr) {
+            assert(( (*this).size() == expr.size()));
+
+            size_t nrows = expr.size().first;
+            size_t ncols = expr.size().second;
+
+            for(int i = 0; i < nrows; i++) {
+                for(int j = 0; j < ncols; j++) {
+                    (*this).array[i][j] = expr(i,j);
                 }
             }
         }
 
         T operator () (size_t i, size_t j) const {
-            return array[i][j];
+            return (*this).array[i][j];
         }
 
         T& operator () (size_t i, size_t j) {
-            return array[i][j];
+            return (*this).array[i][j];
         }
 
         std::pair<size_t, size_t> size() const {
-            return std::make_pair(array.size(), array[0].size());
+            return std::make_pair((*this).array.size(), (*this).array[0].size());
         }
         
     };

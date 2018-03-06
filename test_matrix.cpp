@@ -45,11 +45,23 @@ int main(int argc, char const *argv[]) {
         }
     }
 
+    /*
+    Un-comment this to test int matrix.
+    */
+    smps::Matrix<int> mat3(1000,500);
+    for(int i=0; i<1000; i++){
+        for(int j=0; j<500; j++){
+            mat2(i,j) = i+j;
+        }
+    }
+
     const auto start_time = std::chrono::steady_clock::now();
     // mat1 = mat1 * mat2;
     // mat1 *= mat2;
-    mat1 = mat1 + mat2;
+    // mat1 = mat1 + mat2;
     // mat1 += mat2;
+    // mat1 = (mat1*mat2 + mat2 * mat1);
+    // mat1 = (mat1*mat2 + mat2 * mat1) + mat3; // Should give error as mismatched dimensions.
     const auto end_time = std::chrono::steady_clock::now();
 
     std::cout << "Execution time = " <<
