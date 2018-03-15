@@ -51,7 +51,7 @@ int main(int argc, char const *argv[]) {
     smps::Matrix<int> mat3(1000,500);
     for(int i=0; i<1000; i++){
         for(int j=0; j<500; j++){
-            mat2(i,j) = i+j;
+            mat3(i,j) = i+j;
         }
     }
 
@@ -62,6 +62,8 @@ int main(int argc, char const *argv[]) {
     // mat1 += mat2;
     // mat1 = (mat1*mat2 + mat2 * mat1);
     // mat1 = (mat1*mat2 + mat2 * mat1) + mat3; // Should give error as mismatched dimensions.
+    // smps::MatrixProduct<smps::Matrix<int>, smps::Matrix<int>> mat4 = mat1 * mat2;
+
     const auto end_time = std::chrono::steady_clock::now();
 
     std::cout << "Execution time = " <<
@@ -72,8 +74,9 @@ int main(int argc, char const *argv[]) {
     */
     // for(int i=0; i<3; i++){
     //     for(int j=0; j<3; j++){
-    //         std::cout<< mat1(i,j) << " ";
+    //         int x = mat3(i,j);
     //     }
-    //     std::cout<< std::endl;
     // }
+
+    return 0;
 }

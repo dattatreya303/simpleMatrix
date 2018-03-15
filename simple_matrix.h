@@ -10,7 +10,6 @@
 #include <stdexcept>
 #include <vector>
 #include <cassert>
-#include <pthread.h>
 
 namespace smps {
 
@@ -41,7 +40,7 @@ namespace smps {
         T2 const& _b;
 
         MatrixSum(T1 const& a, T2 const& b) : _a(a), _b(b) {
-            assert(( a.size() == b.size() ));
+            assert((a.size() == b.size()));
         }
 
         auto operator () (size_t i, size_t j) const {
@@ -62,10 +61,6 @@ namespace smps {
         MatrixProduct(T1 const& a, T2 const& b) : _a(a), _b(b) {
             assert(( a.size().second == b.size().first ));
         }
-
-        // void* MatrixProductWorker(void *args) {
-
-        // }
 
         auto operator () (size_t i, size_t j) const {
             auto val = _a(i,0) * _b(0,j);
