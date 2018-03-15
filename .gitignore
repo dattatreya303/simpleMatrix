@@ -32,4 +32,5 @@
 *.app
 
 # Project-specific executable
-./test_matrix
+test_matrix
+test_constructor
